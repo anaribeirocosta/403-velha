@@ -14,8 +14,17 @@ header h1{
     font-size: 36pt;
 }
 
+.linha{
+    display: flex;
+}
+
 .casa{
-    display: inline-block;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 40pt;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
     height: 150px;
     width: 150px;
     border: 4px dashed black;
