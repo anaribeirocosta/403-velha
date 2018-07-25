@@ -1,20 +1,41 @@
 const casas = document.querySelectorAll(".casa");
 const tabuleiro = document.querySelector("#tabuleiro");
-const inputs = document.querySelector("#inputs");
+const sectionInputs = document.querySelector("#inputs");
 const botaoIniciar = document.querySelector("button");
+const inputs = document.querySelectorAll("input");
 
 let contador = 0;
+let jogador1;
+let jogador2;
+let simbolo1;
+let simbolo2;
 
-botaoIniciar.onclick = iniciarJogo;
+
+botaoIniciar.onclick = validarInicio;
+
+function validarInicio(){
+    for(input of inputs){
+        if(input.value === ""){
+            alert("Preencha primeiro todos os campos e só depois clique em Iniciar Jogo.");
+            return;
+        }
+    }
+    iniciarJogo()
+}
 
 function iniciarJogo(){
+    jogador1 = inputs[0].value;
+    jogador2 = inputs[2].value;
+    simbolo1 = inputs[1].value;
+    simbolo2 = inputs[3].value;
+
     for(let casa of casas){
         casa.onclick = clicar;
         casa.innerHTML = "";
     }
 
     tabuleiro.style.display = "block";
-    inputs.style.display = "none";
+    sectionInputs.style.display = "none";
 }
 
 function verificar(){
@@ -52,11 +73,11 @@ function clicar(){
     contador++;
 
     if(contador % 2){
-        this.innerHTML = "X";
+        this.innerHTML = simbolo1;
         this.style.color = "blue";
     }
     else{
-        this.innerHTML = "O";
+        this.innerHTML = simbolo2;
         this.style.color = "green";
     }
 
