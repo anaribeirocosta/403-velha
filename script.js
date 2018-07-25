@@ -1,19 +1,27 @@
 const casas = document.querySelectorAll(".casa");
 const tabuleiro = document.querySelector("#tabuleiro");
 const sectionInputs = document.querySelector("#inputs");
-const botaoIniciar = document.querySelector("button");
+const botoes = document.querySelectorAll("button");
 const inputs = document.querySelectorAll("input");
+const modal = document.querySelector("#winners");
 
-let contador = 0;
+let contador;
 let jogador1;
 let jogador2;
 let simbolo1;
 let simbolo2;
+let vitorias1 = 0;
+let vitorias2 = 0;
 
-
-botaoIniciar.onclick = validarInicio;
+for (botao of botoes){
+    botao.onclick = validarInicio;
+}
 
 function validarInicio(){
+    if(modal.classList.contains("descendo")){
+        modal.classList.remove("descendo");
+    }
+
     for(input of inputs){
         if(input.value === ""){
             alert("Preencha primeiro todos os campos e só depois clique em Iniciar Jogo.");
@@ -24,6 +32,8 @@ function validarInicio(){
 }
 
 function iniciarJogo(){
+    contador = 0;
+
     jogador1 = inputs[0].value;
     jogador2 = inputs[2].value;
     simbolo1 = inputs[1].value;
@@ -47,16 +57,26 @@ function verificar(){
     comparar(casas[2], casas[5], casas[8]) ||
     comparar(casas[0], casas[4], casas[8]) ||
     comparar(casas[2], casas[4], casas[6])){
+        for(let casa of casas){
+            casa.onclick = null;
+        }
         if(contador % 2){
-            document.querySelector("body").style.backgroundColor = "blue";
+            document.querySelector("#vencedor").innerHTML = jogador1;
+            vitorias1++;
         }
         else{
-            document.querySelector("body").style.backgroundColor = "green";
+            document.querySelector("#vencedor").innerHTML = jogador2;
+            vitorias2++;
         }
-        
+        document.querySelector("#placar1").innerHTML = `${jogador1}: ${vitorias1}`;
+        document.querySelector("#placar2").innerHTML = `${jogador2}: ${vitorias2}`;
+        modal.classList.add("descendo");
     }
     else if(contador === 9){
-        document.querySelector("body").style.backgroundColor = "purple";
+        document.querySelector("#vencedor").innerHTML = "### A VELHA ###!";
+        document.querySelector("#placar1").innerHTML = `${jogador1}: ${vitorias1}`;
+        document.querySelector("#placar2").innerHTML = `${jogador2}: ${vitorias2}`;
+        modal.classList.add("descendo");
     }
 }
 
