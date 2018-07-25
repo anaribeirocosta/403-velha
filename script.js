@@ -1,8 +1,20 @@
 const casas = document.querySelectorAll(".casa");
+const tabuleiro = document.querySelector("#tabuleiro");
+const inputs = document.querySelector("#inputs");
+const botaoIniciar = document.querySelector("button");
+
 let contador = 0;
 
-for(let casa of casas){
-    casa.onclick = clicar;
+botaoIniciar.onclick = iniciarJogo;
+
+function iniciarJogo(){
+    for(let casa of casas){
+        casa.onclick = clicar;
+        casa.innerHTML = "";
+    }
+
+    tabuleiro.style.display = "block";
+    inputs.style.display = "none";
 }
 
 function verificar(){
